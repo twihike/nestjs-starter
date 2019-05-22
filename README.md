@@ -141,7 +141,7 @@ yarn run test:cov
 ## DB migration
 ```bash
 # generate
-yarn run migration:generate
+yarn run migration:generate <name>
 # run
 yarn run migration:run
 # dry run
@@ -197,8 +197,8 @@ yarn add -D @typescript-eslint/eslint-plugin
 
 ## Copyright
 
-This repository forked from typescript-starter
-https://github.com/nestjs/typescript-starter
+This repository is based on typescript-starter.  
+https://github.com/nestjs/typescript-starter  
 
-Copyright (c) 2017-2019 Kamil Myśliwiec <http://kamilmysliwiec.com>
-https://opensource.org/licenses/MIT
+Copyright (c) 2017-2019 Kamil Myśliwiec <http://kamilmysliwiec.com>  
+https://opensource.org/licenses/MIT  
