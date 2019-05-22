@@ -4,7 +4,7 @@ import { User } from '../users/users.entity';
 import { LoginDTO, LoginResult, SignUpDTO } from './auth.dto';
 import { AuthService } from './auth.service';
 
-@Resolver(ofUsers => User)
+@Resolver(of => User)
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 

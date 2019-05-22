@@ -7,7 +7,6 @@ import { ConfigModule } from './config/config.module';
 import { GqlOptionsService } from './config/gql-options.service';
 import { TerminusOptionsService } from './config/terminus-options.service';
 import { TypeOrmOptionsService } from './config/typeorm-options.service';
-import { DemoModule } from './demo/demo.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -24,7 +23,6 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     UsersModule,
-    DemoModule,
   ],
 })
 export class AppModule {}

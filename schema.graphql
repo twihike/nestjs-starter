@@ -20,13 +20,6 @@ type LoginResult {
 type Mutation {
   signUp(user: SignUpDTO!): User!
   login(login: LoginDTO!): LoginResult!
-  post: Post!
-}
-
-type Post {
-  id: ID!
-  post: String!
-  tags: [Tag!]!
 }
 
 type Query {
@@ -38,10 +31,6 @@ input SignUpDTO {
   name: String!
   email: String!
   password: String!
-}
-
-type Tag {
-  name: ID!
 }
 
 type User {
