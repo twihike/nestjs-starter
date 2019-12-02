@@ -17,7 +17,7 @@ const options: TypeOrmModuleOptions = {
   entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
   namingStrategy: new TypeOrmNamingStrategy(),
   synchronize: true,
-  logging: true,
+  logging: env.NODE_ENV === 'development',
 };
 
 module.exports = options;

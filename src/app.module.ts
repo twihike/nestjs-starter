@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
       useClass: TypeOrmOptionsService,
     }),
     GraphQLModule.forRootAsync({
+      imports: [ConfigModule],
       useClass: GqlOptionsService,
     }),
     TerminusModule.forRootAsync({

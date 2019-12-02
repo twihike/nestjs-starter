@@ -89,7 +89,7 @@
     * Docs
         * Jest: https://jestjs.io/
     * Packages
-        * jset: https://github.com/facebook/jest
+        * jest: https://github.com/facebook/jest
 
 * Documentation
     * Docs
@@ -157,6 +157,7 @@ yarn run doc
 ```bash
 # clone
 git clone https://github.com/nestjs/typescript-starter.git
+cd typescript-starter
 # graphql
 yarn add @nestjs/graphql apollo-server-express graphql-tools graphql
 yarn add type-graphql

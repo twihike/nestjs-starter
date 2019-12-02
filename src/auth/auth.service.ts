@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
-import { LoginDTO, LoginResult, SignUpDTO } from './auth.dto';
+import { LoginDto, LoginResult, SignUpDto } from './auth.dto';
 import { JwtPayload } from './jwt.dto';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class AuthService {
     private readonly usersRepo: Repository<User>,
   ) {}
 
-  async signUp(user: SignUpDTO): Promise<User> {
+  async signUp(user: SignUpDto): Promise<User> {
     const u = { ...user };
     u.password = AuthService.encryptPassword(u.password);
     const result = await this.usersRepo.save(u);
@@ -30,7 +30,7 @@ export class AuthService {
     return bcrypt.hashSync(password, salt);
   }
 
-  async login(login: LoginDTO): Promise<LoginResult> {
+  async login(login: LoginDto): Promise<LoginResult> {
     const user = await this.usersService.findOneByName(login.name);
     if (!user) {
       return { token: '' };

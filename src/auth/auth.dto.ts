@@ -4,7 +4,7 @@ import { Field, InputType, ObjectType } from 'type-graphql';
 import { User } from '../users/users.entity';
 
 @InputType()
-export class SignUpDTO implements Partial<User> {
+export class SignUpDto implements Partial<User> {
   @ApiModelProperty()
   @Field()
   @IsAlphanumeric()
@@ -25,7 +25,7 @@ export class SignUpDTO implements Partial<User> {
 }
 
 @InputType()
-export class LoginDTO implements Partial<User> {
+export class LoginDto implements Partial<User> {
   @ApiModelProperty()
   @Field()
   @IsAlphanumeric()
