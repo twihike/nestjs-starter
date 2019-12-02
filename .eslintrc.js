@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    jest: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -31,6 +32,13 @@ module.exports = {
         // TypeGraphQL decorator
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+    {
+      files: ['src/**/*.spec.ts', 'test/**/*.e2e-spec.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
       },
     },
   ],
