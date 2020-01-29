@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { ConfigService } from './config.service';
-import * as postgres from './ormconfig.postgres';
-import * as sqlite from './ormconfig.sqlite';
+import { ConfigService } from '../config/config.service';
+import * as postgres from '../config/ormconfig.postgres';
+import * as sqlite from '../config/ormconfig.sqlite';
 
 @Injectable()
 export class TypeOrmOptionsService implements TypeOrmOptionsFactory {

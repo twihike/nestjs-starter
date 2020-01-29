@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GqlOptionsService } from './appoptions/gql-options.service';
+import { TerminusOptionsService } from './appoptions/terminus-options.service';
+import { TypeOrmOptionsService } from './appoptions/typeorm-options.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from './config/config.module';
-import { GqlOptionsService } from './config/gql-options.service';
-import { TerminusOptionsService } from './config/terminus-options.service';
-import { TypeOrmOptionsService } from './config/typeorm-options.service';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -20,10 +19,10 @@ import { UsersModule } from './users/users.module';
       useClass: GqlOptionsService,
     }),
     TerminusModule.forRootAsync({
+      imports: [ConfigModule],
       useClass: TerminusOptionsService,
     }),
     AuthModule,
-    UsersModule,
   ],
 })
 export class AppModule {}
