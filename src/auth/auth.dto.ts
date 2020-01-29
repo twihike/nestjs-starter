@@ -1,23 +1,23 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsAlphanumeric, IsAscii, IsEmail, MinLength } from 'class-validator';
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { User } from '../users/users.entity';
 
 @InputType()
 export class SignUpDto implements Partial<User> {
-  @ApiModelProperty()
+  @ApiProperty()
   @Field()
   @IsAlphanumeric()
   @MinLength(1)
   readonly name: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Field()
   @IsEmail()
   @MinLength(1)
   readonly email: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Field()
   @IsAscii()
   @MinLength(8)
@@ -26,13 +26,13 @@ export class SignUpDto implements Partial<User> {
 
 @InputType()
 export class LoginDto implements Partial<User> {
-  @ApiModelProperty()
+  @ApiProperty()
   @Field()
   @IsAlphanumeric()
   @MinLength(1)
   readonly name: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Field()
   @IsAscii()
   @MinLength(8)

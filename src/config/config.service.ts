@@ -10,7 +10,11 @@ export class ConfigService {
   constructor() {
     Logger.debug('Init', this.constructor.name);
 
-    const env = plainToClass(EnvConfig, process.env);
+    const env = plainToClass(
+      EnvConfig,
+      { ...EnvConfig.getDefaultObject(), ...process.env },
+      { enableImplicitConversion: true },
+    );
     const errors = validateSync(env, { whitelist: true });
     if (errors.length > 0) {
       const errmsg = JSON.stringify(errors, undefined, '  ');

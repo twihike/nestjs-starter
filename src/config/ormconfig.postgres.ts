@@ -4,7 +4,11 @@ import { validateSync } from 'class-validator';
 import { EnvConfig } from './config.env';
 import { TypeOrmNamingStrategy } from './typeorm-naming-strategy';
 
-const env = plainToClass(EnvConfig, process.env);
+const env = plainToClass(
+  EnvConfig,
+  { ...EnvConfig.getDefaultObject(), ...process.env },
+  { enableImplicitConversion: true },
+);
 const errors = validateSync(env, { whitelist: true });
 if (errors.length > 0) {
   console.error(JSON.stringify(errors, undefined, '  '));
