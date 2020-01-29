@@ -22,7 +22,7 @@ import { MockStrategy } from './mock.strategy';
         // "jsonwebtoken" option to sign
         secret: config.env.JWT_SECRET,
         signOptions: {
-          expiresIn: 24 * 60 * 60,
+          expiresIn: config.env.JWT_EXPIRES_IN,
         },
       }),
     }),
