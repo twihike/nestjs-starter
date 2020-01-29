@@ -75,6 +75,7 @@
   * Packages
     * eslint: <https://github.com/eslint/eslint>
     * eslint-config-airbnb: <https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb>
+    * @typescript-eslint/parser: <https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser>
     * @typescript-eslint/eslint-plugin: <https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin>
 
 * Formatter
@@ -144,11 +145,17 @@ yarn run test:cov
 # generate
 yarn run migration:generate <name>
 
+# show all migrations
+yarn run migration:show
+
 # run
 yarn run migration:run
 
 # dry run
 yarn run schema:log
+
+# revert
+yarn run migration:revert
 ```
 
 ## Documentation
@@ -201,10 +208,10 @@ yarn add @nestjs/terminus @godaddy/terminus
 # linter
 yarn add -D eslint
 yarn add -D eslint-plugin-import
-yarn add -D eslint-plugin-react
+yarn add -D eslint-plugin-react eslint-plugin-react-hooks
 yarn add -D eslint-plugin-jsx-a11y
 yarn add -D eslint-config-airbnb
-yarn add -D @typescript-eslint/eslint-plugin
+yarn add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin
 
 # formatter
 yarn add -D eslint-config-prettier eslint-plugin-prettier

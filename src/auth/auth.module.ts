@@ -16,6 +16,7 @@ import { MockStrategy } from './mock.strategy';
 @Module({
   imports: [
     JwtModule.registerAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService): JwtModuleOptions => ({
         // "jsonwebtoken" option to sign
