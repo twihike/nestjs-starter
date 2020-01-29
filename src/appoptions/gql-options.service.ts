@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
-import { ConfigService } from './config.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class GqlOptionsService implements GqlOptionsFactory {

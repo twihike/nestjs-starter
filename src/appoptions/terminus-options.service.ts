@@ -7,7 +7,7 @@ import {
   TerminusOptionsFactory,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
-import { ConfigService } from './config.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class TerminusOptionsService implements TerminusOptionsFactory {
