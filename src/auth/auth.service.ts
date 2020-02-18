@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
-import { LoginDto, LoginResult, SignUpDto } from './auth.dto';
+import { SignInInput, SignInResult, SignUpInput } from './auth.dto';
 import { JwtPayload } from './jwt.dto';
 
 @Injectable()
@@ -17,8 +17,8 @@ export class AuthService {
     private readonly usersRepo: Repository<User>,
   ) {}
 
-  async signUp(user: SignUpDto): Promise<User> {
-    const u = { ...user };
+  async signUp(input: SignUpInput): Promise<User> {
+    const u = { ...input };
     u.password = AuthService.encryptPassword(u.password);
     const result = await this.usersRepo.save(u);
     return result;
@@ -30,15 +30,15 @@ export class AuthService {
     return bcrypt.hashSync(password, salt);
   }
 
-  async login(login: LoginDto): Promise<LoginResult> {
-    const user = await this.usersService.findOneByName(login.name);
+  async signIn(input: SignInInput): Promise<SignInResult> {
+    const user = await this.usersService.findOneByName(input.name);
     if (!user) {
-      return { token: '' };
+      return new SignInResult();
     }
 
-    const valid = await bcrypt.compare(login.password, user.password);
+    const valid = await bcrypt.compare(input.password, user.password);
     if (!valid) {
-      return { token: '' };
+      return new SignInResult();
     }
 
     const payload: JwtPayload = {
@@ -48,7 +48,7 @@ export class AuthService {
     };
     const token = this.jwtService.sign(payload);
 
-    return { token };
+    return { ...user, token };
   }
 
   async validateUser(payload: JwtPayload): Promise<User> {

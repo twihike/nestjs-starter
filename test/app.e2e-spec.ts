@@ -28,13 +28,13 @@ describe('AppController (e2e)', () => {
       .expect(201);
   });
 
-  it('POST /api/auth/login', async () => {
+  it('POST /api/auth/signin', async () => {
     const input = {
       name: 'a',
       password: 'aaaaaaaa',
     };
     const res = await request(app.getHttpServer())
-      .post('/api/auth/login')
+      .post('/api/auth/signin')
       .send(input)
       .expect(201);
     token = res.body.token as string;
@@ -50,18 +50,18 @@ describe('AppController (e2e)', () => {
   });
 
   it('GET /api/users/a', async () => {
-    const users = await request(app.getHttpServer())
+    const user = await request(app.getHttpServer())
       .get('/api/users/a')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
-    expect(users.body.id).toBe(1);
-    expect(users.body.name).toBe('a');
+    expect(user.body.id).toBe(1);
+    expect(user.body.name).toBe('a');
   });
 
   it('GraphQL signUp', async () => {
     const q = `
-      mutation SignUp($input: SignUpDto!) {
-        signUp(user: $input) {
+      mutation SignUp($input: SignUpInput!) {
+        signUp(input: $input) {
           id
         }
       }
@@ -83,10 +83,10 @@ describe('AppController (e2e)', () => {
     expect(res.body.data.signUp).toHaveProperty('id');
   });
 
-  it('GraphQL login', async () => {
+  it('GraphQL signIn', async () => {
     const q = `
-      mutation Login($input: LoginDto!) {
-        login(login: $input) {
+      mutation SignIn($input: SignInInput!) {
+        signIn(input: $input) {
           token
         }
       }
@@ -104,7 +104,7 @@ describe('AppController (e2e)', () => {
       .send({ query: q, variables: v })
       .expect(200);
 
-    token = res.body.data.login.token as string;
+    token = res.body.data.signIn.token as string;
     expect(token.length).toBeGreaterThan(0);
   });
 
