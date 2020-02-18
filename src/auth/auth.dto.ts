@@ -4,7 +4,7 @@ import { Field, InputType, ObjectType } from 'type-graphql';
 import { User } from '../users/users.entity';
 
 @InputType()
-export class SignUpDto implements Partial<User> {
+export class SignUpInput implements Partial<User> {
   @ApiProperty()
   @Field()
   @IsAlphanumeric()
@@ -25,7 +25,7 @@ export class SignUpDto implements Partial<User> {
 }
 
 @InputType()
-export class LoginDto implements Partial<User> {
+export class SignInInput implements Partial<User> {
   @ApiProperty()
   @Field()
   @IsAlphanumeric()
@@ -40,7 +40,7 @@ export class LoginDto implements Partial<User> {
 }
 
 @ObjectType()
-export class LoginResult {
+export class SignInResult extends User {
   @Field()
   readonly token: string;
 }

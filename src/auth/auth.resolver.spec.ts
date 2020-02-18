@@ -2,7 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToClass } from 'class-transformer';
 import { User } from '../users/users.entity';
-import { LoginDto, LoginResult, SignUpDto } from './auth.dto';
+import { SignInInput, SignInResult, SignUpInput } from './auth.dto';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 
@@ -13,7 +13,7 @@ describe('AuthResolver', () => {
   beforeEach(async () => {
     const authServiceMockValue = {
       signUp: () => 'mock',
-      login: () => 'mock',
+      signIn: () => 'mock',
     };
     const AuthServiceMock = {
       provide: AuthService,
@@ -33,7 +33,7 @@ describe('AuthResolver', () => {
 
   describe('signUp', () => {
     it('should call AuthService.signUp', async () => {
-      const input: SignUpDto = {
+      const input: SignUpInput = {
         name: 'a',
         email: 'a@example.com',
         password: 'secret',
@@ -54,45 +54,45 @@ describe('AuthResolver', () => {
     });
   });
 
-  describe('login', () => {
-    describe('when login is successful', () => {
+  describe('signIn', () => {
+    describe('when sign-in is successful', () => {
       it('should return token', async () => {
-        const input: LoginDto = {
+        const input: SignInInput = {
           name: 'a',
           password: 'secret',
         };
-        const result = plainToClass(LoginResult, {
+        const result = plainToClass(SignInResult, {
           token: 'a',
         });
 
-        const rv = new Promise<LoginResult>(resolve => resolve(result));
-        const login = jest.spyOn(service, 'login').mockReturnValue(rv);
+        const rv = new Promise<SignInResult>(resolve => resolve(result));
+        const signIn = jest.spyOn(service, 'signIn').mockReturnValue(rv);
 
-        expect(await resolver.login(input)).toBe(result);
-        expect(login.mock.calls[0][0]).toBe(input);
+        expect(await resolver.signIn(input)).toBe(result);
+        expect(signIn.mock.calls[0][0]).toBe(input);
 
-        login.mockRestore();
+        signIn.mockRestore();
       });
     });
 
-    describe('when login failed', () => {
+    describe('when sign-in failed', () => {
       it('should throw BadRequestException', async () => {
-        const input: LoginDto = {
+        const input: SignInInput = {
           name: 'a',
           password: 'secret',
         };
-        const result = plainToClass(LoginResult, {
+        const result = plainToClass(SignInResult, {
           token: '',
         });
 
-        const rv = new Promise<LoginResult>(resolve => resolve(result));
-        const login = jest.spyOn(service, 'login').mockReturnValue(rv);
+        const rv = new Promise<SignInResult>(resolve => resolve(result));
+        const signIn = jest.spyOn(service, 'signIn').mockReturnValue(rv);
 
-        const l = resolver.login(input);
+        const l = resolver.signIn(input);
         await expect(l).rejects.toThrowError(BadRequestException);
-        expect(login.mock.calls[0][0]).toBe(input);
+        expect(signIn.mock.calls[0][0]).toBe(input);
 
-        login.mockRestore();
+        signIn.mockRestore();
       });
     });
   });

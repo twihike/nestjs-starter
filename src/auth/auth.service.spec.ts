@@ -5,7 +5,7 @@ import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
-import { LoginDto, SignUpDto } from './auth.dto';
+import { SignInInput, SignUpInput } from './auth.dto';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -52,7 +52,7 @@ describe('AuthService', () => {
 
   describe('signUp', () => {
     it('should save user with hashed password', async () => {
-      const input: SignUpDto = {
+      const input: SignUpInput = {
         name: 'a',
         email: 'a@example.com',
         password: 'secret',
@@ -86,10 +86,10 @@ describe('AuthService', () => {
     });
   });
 
-  describe('login', () => {
+  describe('signIn', () => {
     describe('when the user exists', () => {
       it('should return valid token', async () => {
-        const input: LoginDto = {
+        const input: SignInInput = {
           name: 'a',
           password: 'secret',
         };
@@ -99,7 +99,7 @@ describe('AuthService', () => {
           email: 'a@example.com',
         });
         const token = 'j.w.t';
-        const result = { token };
+        const result = { ...user, token };
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
@@ -111,7 +111,7 @@ describe('AuthService', () => {
         );
         const sign = jest.spyOn(jwtService, 'sign').mockReturnValue(token);
 
-        expect(await service.login(input)).toEqual(result);
+        expect(await service.signIn(input)).toEqual(result);
         expect(findOneByName.mock.calls[0][0]).toBe(input.name);
 
         findOneByName.mockRestore();
@@ -122,12 +122,12 @@ describe('AuthService', () => {
 
     describe('when the user does not exist', () => {
       it('should return empty token', async () => {
-        const input: LoginDto = {
+        const input: SignInInput = {
           name: 'a',
           password: 'secret',
         };
         const user = undefined;
-        const result = { token: '' };
+        const result = {};
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
@@ -135,7 +135,7 @@ describe('AuthService', () => {
             new Promise<undefined>(resolve => resolve(user)),
           );
 
-        expect(await service.login(input)).toEqual(result);
+        expect(await service.signIn(input)).toEqual(result);
         expect(findOneByName.mock.calls[0][0]).toBe(input.name);
 
         findOneByName.mockRestore();
@@ -144,7 +144,7 @@ describe('AuthService', () => {
 
     describe('when the password is invalid', () => {
       it('should return empty token', async () => {
-        const input: LoginDto = {
+        const input: SignInInput = {
           name: 'a',
           password: 'secret',
         };
@@ -153,7 +153,7 @@ describe('AuthService', () => {
           name: 'a',
           email: 'a@example.com',
         });
-        const result = { token: '' };
+        const result = {};
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
@@ -164,7 +164,7 @@ describe('AuthService', () => {
           new Promise<boolean>(resolve => resolve(false)),
         );
 
-        expect(await service.login(input)).toEqual(result);
+        expect(await service.signIn(input)).toEqual(result);
         expect(findOneByName.mock.calls[0][0]).toBe(input.name);
         expect(compare.mock.calls[0][0]).toBe(input.password);
         expect(compare.mock.calls[0][1]).toBe(user.password);

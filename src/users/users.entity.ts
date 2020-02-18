@@ -33,11 +33,11 @@ export class User {
 
   @Field()
   @CreateDateColumn()
-  readonly createAt: Date;
+  readonly createdAt: Date;
 
   @Field()
   @UpdateDateColumn()
-  readonly updateAt: Date;
+  readonly updatedAt: Date;
 
   @Field(type => Int)
   @VersionColumn()
