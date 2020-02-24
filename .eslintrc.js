@@ -1,25 +1,30 @@
 module.exports = {
+  root: true,
+  plugins: ['@typescript-eslint/eslint-plugin'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
     sourceType: 'module',
+    project: 'tsconfig.json',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  env: {
+    node: true,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.ts', '.js'],
+      },
+    },
+  },
   extends: [
     'airbnb',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
+    // Turns off
     'prettier/@typescript-eslint',
   ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
-  },
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
     // Nest way
     'import/prefer-default-export': 'off',
     'import/extensions': ['error', 'ignorePackages', { ts: 'never' }],
@@ -34,16 +39,13 @@ module.exports = {
     },
     {
       files: ['src/**/*.spec.ts', 'test/**/*.e2e-spec.ts'],
+      env: {
+        jest: true,
+      },
       rules: {
         'import/no-extraneous-dependencies': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
       },
     },
   ],
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.ts', '.js'],
-      },
-    },
-  },
 };
