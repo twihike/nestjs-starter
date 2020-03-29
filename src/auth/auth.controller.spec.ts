@@ -45,7 +45,7 @@ describe('Auth Controller', () => {
         email: 'a@example.com',
       });
 
-      const rv = new Promise<User>(resolve => resolve(result));
+      const rv = new Promise<User>((resolve) => resolve(result));
       const signUp = jest.spyOn(service, 'signUp').mockReturnValue(rv);
 
       expect(await controller.signUp(input)).toBe(result);
@@ -66,7 +66,7 @@ describe('Auth Controller', () => {
           token: 'a',
         });
 
-        const rv = new Promise<SignInResult>(resolve => resolve(result));
+        const rv = new Promise<SignInResult>((resolve) => resolve(result));
         const signIn = jest.spyOn(service, 'signIn').mockReturnValue(rv);
 
         expect(await controller.signIn(input)).toBe(result);
@@ -86,7 +86,7 @@ describe('Auth Controller', () => {
           token: '',
         });
 
-        const rv = new Promise<SignInResult>(resolve => resolve(result));
+        const rv = new Promise<SignInResult>((resolve) => resolve(result));
         const signIn = jest.spyOn(service, 'signIn').mockReturnValue(rv);
 
         const l = controller.signIn(input);
