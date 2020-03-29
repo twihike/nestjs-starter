@@ -27,9 +27,6 @@ export class EnvConfig {
   @IsBoolean()
   TYPEORM_LOGGING: boolean;
 
-  @IsString()
-  HEALTH_CHECK_URL: string;
-
   @IsNumber()
   HEALTH_CHECK_DATABASE_TIMEOUT_MS: number;
 
@@ -61,7 +58,6 @@ export class EnvConfig {
     obj.TYPEORM_DATABASE = 'postgres';
     obj.TYPEORM_PORT = 5432;
     obj.TYPEORM_LOGGING = false;
-    obj.HEALTH_CHECK_URL = '/healthz';
     obj.HEALTH_CHECK_DATABASE_TIMEOUT_MS = 3000;
     obj.JWT_SECRET = '';
     obj.JWT_EXPIRES_IN = 86400;
