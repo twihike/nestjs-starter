@@ -13,7 +13,7 @@ import {
 @ObjectType()
 @Entity()
 export class User {
-  @Field(type => ID)
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   readonly id: number;
 
@@ -39,7 +39,7 @@ export class User {
   @UpdateDateColumn()
   readonly updatedAt: Date;
 
-  @Field(type => Int)
+  @Field((type) => Int)
   @VersionColumn()
   readonly version: number;
 }

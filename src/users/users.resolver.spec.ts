@@ -42,7 +42,7 @@ describe('UsersResolver', () => {
       ];
 
       const findAll = jest.spyOn(service, 'findAll').mockReturnValue(
-        new Promise<User[]>(resolve => resolve(result)),
+        new Promise<User[]>((resolve) => resolve(result)),
       );
 
       expect(await resolver.users()).toEqual(result);
@@ -62,7 +62,7 @@ describe('UsersResolver', () => {
       const findOneByName = jest
         .spyOn(service, 'findOneByName')
         .mockReturnValue(
-          new Promise<User>(resolve => resolve(result)),
+          new Promise<User>((resolve) => resolve(result)),
         );
 
       expect(await resolver.user(input)).toEqual(result);

@@ -70,7 +70,7 @@ describe('AuthService', () => {
       const mockHash = 'hash';
       const hashSync = jest.spyOn(bcrypt, 'hashSync').mockReturnValue(mockHash);
       const save = jest.spyOn(usersRepo, 'save').mockReturnValue(
-        new Promise<User>(resolve => resolve(result)),
+        new Promise<User>((resolve) => resolve(result)),
       );
 
       expect(await service.signUp(input)).toBe(result);
@@ -104,10 +104,10 @@ describe('AuthService', () => {
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
           .mockReturnValue(
-            new Promise<User>(resolve => resolve(user)),
+            new Promise<User>((resolve) => resolve(user)),
           );
         const compare = jest.spyOn(bcrypt, 'compare').mockReturnValue(
-          new Promise<boolean>(resolve => resolve(true)),
+          new Promise<boolean>((resolve) => resolve(true)),
         );
         const sign = jest.spyOn(jwtService, 'sign').mockReturnValue(token);
 
@@ -132,7 +132,7 @@ describe('AuthService', () => {
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
           .mockReturnValue(
-            new Promise<undefined>(resolve => resolve(user)),
+            new Promise<undefined>((resolve) => resolve(user)),
           );
 
         expect(await service.signIn(input)).toEqual(result);
@@ -158,10 +158,10 @@ describe('AuthService', () => {
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
           .mockReturnValue(
-            new Promise<User>(resolve => resolve(user)),
+            new Promise<User>((resolve) => resolve(user)),
           );
         const compare = jest.spyOn(bcrypt, 'compare').mockReturnValue(
-          new Promise<boolean>(resolve => resolve(false)),
+          new Promise<boolean>((resolve) => resolve(false)),
         );
 
         expect(await service.signIn(input)).toEqual(result);
@@ -187,7 +187,7 @@ describe('AuthService', () => {
       const findOneByName = jest
         .spyOn(usersService, 'findOneByName')
         .mockReturnValue(
-          new Promise<User>(resolve => resolve(result)),
+          new Promise<User>((resolve) => resolve(result)),
         );
 
       expect(await service.validateUser(input)).toEqual(result);
