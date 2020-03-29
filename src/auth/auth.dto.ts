@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsAlphanumeric, IsAscii, IsEmail, MinLength } from 'class-validator';
-import { Field, InputType, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { User } from '../users/users.entity';
 
 @InputType()
