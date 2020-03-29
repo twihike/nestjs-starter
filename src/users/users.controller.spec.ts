@@ -43,7 +43,7 @@ describe('Users Controller', () => {
       ];
 
       const findAll = jest.spyOn(service, 'findAll').mockReturnValue(
-        new Promise<User[]>(resolve => resolve(result)),
+        new Promise<User[]>((resolve) => resolve(result)),
       );
 
       expect(await controller.findAll()).toEqual(result);
@@ -63,7 +63,7 @@ describe('Users Controller', () => {
       const findOneByName = jest
         .spyOn(service, 'findOneByName')
         .mockReturnValue(
-          new Promise<User>(resolve => resolve(result)),
+          new Promise<User>((resolve) => resolve(result)),
         );
 
       expect(await controller.findOneByName(input)).toEqual(result);
