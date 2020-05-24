@@ -1,10 +1,10 @@
 # NestJS starter
 
-## Description
+![CI status](https://github.com/twihike/nestjs-starter/workflows/ci/badge.svg)
 
 [NestJS](https://github.com/nestjs/nest) framework starter repository.
 
-### Technologies
+## Technologies
 
 * Language
   * Docs
