@@ -5,27 +5,30 @@ module.exports = {
     sourceType: 'module',
     project: 'tsconfig.json',
   },
-  rules: {
-    // Nest way
-    'import/prefer-default-export': 'off',
-    'no-useless-constructor': 'off',
-    "@typescript-eslint/no-magic-numbers": "off",
-  },
   overrides: [
     {
-      files: ['src/**/*.dto.ts'],
+      files: ['src/**/*.module.ts'],
       rules: {
-        'max-classes-per-file': 'off',
+        '@typescript-eslint/no-extraneous-class': 'off',
+      },
+    },
+    {
+      files: ['src/**/*.entity.ts', 'src/**/*.resolver.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
       },
     },
     {
       files: ['src/**/*.spec.ts', 'test/**/*.e2e-spec.ts'],
-      env: {
-        jest: true,
-      },
       rules: {
         'import/no-extraneous-dependencies': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+    {
+      files: ['test/**/*.e2e-spec.ts'],
+      rules: {
+        'jest/expect-expect': 'off',
       },
     },
   ],

@@ -1,9 +1,9 @@
-/* eslint-disable class-methods-use-this */
 import * as pluralize from 'pluralize';
 import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy';
 import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface';
 import { snakeCase } from 'typeorm/util/StringUtils';
 
+/* eslint-disable class-methods-use-this */
 export class TypeOrmNamingStrategy extends DefaultNamingStrategy
   implements NamingStrategyInterface {
   tableName(targetName: string, userSpecifiedName: string): string {
@@ -61,3 +61,4 @@ export class TypeOrmNamingStrategy extends DefaultNamingStrategy
     return this.joinTableColumnName(tableName, propertyName, columnName);
   }
 }
+/* eslint-enable class-methods-use-this */

@@ -7,6 +7,7 @@ import {
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { HealthCheckResult } from '@nestjs/terminus/dist/health-check';
+
 import { ConfigService } from '../config/config.service';
 
 @Controller('health')

@@ -3,10 +3,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
+
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
-import { SignInInput, SignUpInput } from './auth.dto';
+
 import { AuthService } from './auth.service';
+import { SignInInput } from './dto/sign-in-input.dto';
+import { SignUpInput } from './dto/sign-up-input.dto';
 
 describe('AuthService', () => {
   let service: AuthService;
