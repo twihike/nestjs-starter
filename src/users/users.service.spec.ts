@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
+
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 
@@ -44,7 +45,7 @@ describe('UsersService', () => {
       );
 
       expect(await service.findAll()).toEqual(result);
-      expect(find.mock.calls.length).toBe(1);
+      expect(find.mock.calls).toHaveLength(1);
     });
   });
 

@@ -1,10 +1,14 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToClass } from 'class-transformer';
+
 import { User } from '../users/users.entity';
-import { SignInInput, SignInResult, SignUpInput } from './auth.dto';
+
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+import { SignInInput } from './dto/sign-in-input.dto';
+import { SignInResult } from './dto/sign-in-result.dto';
+import { SignUpInput } from './dto/sign-up-input.dto';
 
 describe('AuthResolver', () => {
   let resolver: AuthResolver;
@@ -89,7 +93,7 @@ describe('AuthResolver', () => {
         const signIn = jest.spyOn(service, 'signIn').mockReturnValue(rv);
 
         const l = resolver.signIn(input);
-        await expect(l).rejects.toThrowError(BadRequestException);
+        await expect(l).rejects.toThrow(BadRequestException);
         expect(signIn.mock.calls[0][0]).toBe(input);
 
         signIn.mockRestore();

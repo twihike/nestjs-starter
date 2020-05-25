@@ -1,6 +1,7 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToClass } from 'class-transformer';
+
 import { User } from './users.entity';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
@@ -46,7 +47,7 @@ describe('UsersResolver', () => {
       );
 
       expect(await resolver.users()).toEqual(result);
-      expect(findAll.mock.calls.length).toBe(1);
+      expect(findAll.mock.calls).toHaveLength(1);
     });
   });
 

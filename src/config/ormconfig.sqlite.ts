@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
+
 import { EnvConfig } from './config.env';
 import { TypeOrmNamingStrategy } from './typeorm-naming-strategy';
 
@@ -11,6 +12,7 @@ const env = plainToClass(
 );
 const errors = validateSync(env, { whitelist: true });
 if (errors.length > 0) {
+  // eslint-disable-next-line no-console
   console.error(JSON.stringify(errors, undefined, '  '));
   throw new Error('Invalid env.');
 }
@@ -24,4 +26,4 @@ const options: TypeOrmModuleOptions = {
   logging: env.NODE_ENV === 'development',
 };
 
-module.exports = options;
+export = options;

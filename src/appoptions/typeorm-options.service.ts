@@ -1,8 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+
 import { ConfigService } from '../config/config.service';
+// eslint-disable-next-line import/namespace
 import * as postgres from '../config/ormconfig.postgres';
+// eslint-disable-next-line import/namespace
 import * as sqlite from '../config/ormconfig.sqlite';
+// import sqlite = require('../config/ormconfig.sqlite');
+// import postgres = require('../config/ormconfig.postgres');
 
 @Injectable()
 export class TypeOrmOptionsService implements TypeOrmOptionsFactory {
@@ -22,6 +27,6 @@ export class TypeOrmOptionsService implements TypeOrmOptionsFactory {
       return postgres;
     }
 
-    throw new Error();
+    throw new Error(`Unknown NODE_ENV: ${this.config.env.NODE_ENV}`);
   }
 }

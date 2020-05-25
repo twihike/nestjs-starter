@@ -1,6 +1,7 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToClass } from 'class-transformer';
+
 import { UsersController } from './users.controller';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -47,7 +48,7 @@ describe('Users Controller', () => {
       );
 
       expect(await controller.findAll()).toEqual(result);
-      expect(findAll.mock.calls.length).toBe(1);
+      expect(findAll.mock.calls).toHaveLength(1);
     });
   });
 
