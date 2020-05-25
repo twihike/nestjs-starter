@@ -2,10 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 import { ConfigService } from '../config/config.service';
+
 // eslint-disable-next-line import/namespace
-import * as postgres from '../config/ormconfig.postgres';
+import * as postgres from './ormconfig.postgres';
 // eslint-disable-next-line import/namespace
-import * as sqlite from '../config/ormconfig.sqlite';
+import * as sqlite from './ormconfig.sqlite';
 // import sqlite = require('../config/ormconfig.sqlite');
 // import postgres = require('../config/ormconfig.postgres');
 

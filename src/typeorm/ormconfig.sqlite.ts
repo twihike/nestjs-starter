@@ -2,7 +2,8 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
-import { EnvConfig } from './config.env';
+import { EnvConfig } from '../config/config.env';
+
 import { TypeOrmNamingStrategy } from './typeorm-naming-strategy';
 
 const env = plainToClass(
@@ -18,19 +19,12 @@ if (errors.length > 0) {
 }
 
 const options: TypeOrmModuleOptions = {
-  type: 'postgres',
-  host: env.TYPEORM_HOST,
-  port: env.TYPEORM_PORT,
-  username: env.TYPEORM_USERNAME,
-  password: env.TYPEORM_PASSWORD,
-  database: env.TYPEORM_DATABASE,
-  entities: [`${__dirname}/../**/*.entity.{ts,js}`],
-  migrations: [`${__dirname}/../migrations/*.{ts,js}`],
+  type: 'sqlite',
+  database: env.NODE_ENV === 'test' ? ':memory:' : 'db.sqlite3',
+  entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
   namingStrategy: new TypeOrmNamingStrategy(),
-  logging: env.TYPEORM_LOGGING,
-  cli: {
-    migrationsDir: 'src/migrations',
-  },
+  synchronize: true,
+  logging: env.NODE_ENV === 'development',
 };
 
 export = options;
