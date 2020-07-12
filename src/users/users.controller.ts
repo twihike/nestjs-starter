@@ -29,8 +29,8 @@ export class UsersController {
   @ApiBearerAuth()
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':name')
-  async findOneByName(@Param() params): Promise<User> {
-    const user = await this.usersService.findOneByName(params.name);
+  async findOneByName(@Param('name') name: string): Promise<User> {
+    const user = await this.usersService.findOneByName(name);
     return user;
   }
 }

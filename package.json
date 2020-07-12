@@ -1,8 +1,8 @@
 {
   "name": "nestjs-starter",
   "version": "0.1.0",
-  "description": "NestJS starter repository",
-  "license": "MIT",
+  "description": "NestJS starter repository.",
+  "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -17,13 +17,22 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -f src/config/ormconfig.postgres.ts -n",
-    "migration:show": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:show -f src/config/ormconfig.postgres.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -f src/config/ormconfig.postgres.ts",
-    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -f src/config/ormconfig.postgres.ts",
-    "schema:log": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:log -f src/config/ormconfig.postgres.ts",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -f src/typeorm/ormconfig.postgres.ts -n",
+    "migration:show": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:show -f src/typeorm/ormconfig.postgres.ts",
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -f src/typeorm/ormconfig.postgres.ts",
+    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -f src/typeorm/ormconfig.postgres.ts",
+    "schema:log": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:log -f src/typeorm/ormconfig.postgres.ts",
     "doc": "compodoc -p tsconfig.json -s"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,mjs,jsx,ts,tsx}": "eslint"
+  },
+  "prettier": "@tkhiking/prettier-config",
   "dependencies": {
     "@godaddy/terminus": "4.4.1",
     "@nestjs/common": "7.2.0",
