@@ -22,7 +22,8 @@ export class AuthService {
   ) {}
 
   async signUp(input: SignUpInput): Promise<User> {
-    const u = { ...input };
+    const u = new User();
+    Object.assign(u, input);
     u.password = AuthService.encryptPassword(u.password);
     const result = await this.usersRepo.save(u);
     return result;

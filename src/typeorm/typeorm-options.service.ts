@@ -17,17 +17,23 @@ export class TypeOrmOptionsService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     Logger.debug('Init', this.constructor.name);
 
-    if (
-      this.config.env.NODE_ENV === 'development' ||
-      this.config.env.NODE_ENV === 'test'
-    ) {
-      return sqlite;
+    if (this.config.env.TYPEORM_TYPE === 'auto') {
+      if (
+        this.config.env.NODE_ENV === 'development' ||
+        this.config.env.NODE_ENV === 'test'
+      ) {
+        return sqlite;
+      }
+      if (this.config.env.NODE_ENV === 'production') {
+        return postgres;
+      }
+      throw new Error(`Unknown NODE_ENV: ${this.config.env.NODE_ENV}`);
     }
 
-    if (this.config.env.NODE_ENV === 'production') {
-      return postgres;
-    }
-
-    throw new Error(`Unknown NODE_ENV: ${this.config.env.NODE_ENV}`);
+    const ormOptions = {
+      sqlite,
+      postgres,
+    };
+    return ormOptions[this.config.env.TYPEORM_TYPE];
   }
 }

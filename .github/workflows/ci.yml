@@ -79,7 +79,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn test:cov
 
-  e2e-test:
+  e2e-test-sqlite:
     needs: build
     strategy:
       fail-fast: false
@@ -97,3 +97,39 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn test:e2e
+
+  e2e-test-postgres:
+    needs: build
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+        node-version: [12.x]
+    runs-on: ${{ matrix.os }}
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/cache@v1
+        id: restore-build
+        with:
+          path: '.'
+          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn migration:generate Test
+      - run: yarn migration:show || true
+      - run: yarn migration:run
+      - run: yarn migration:show
+      - run: yarn test:e2e
+        env:
+          TYPEORM_TYPE: postgres

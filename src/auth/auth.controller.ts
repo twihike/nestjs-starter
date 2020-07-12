@@ -1,4 +1,11 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { User } from '../users/users.entity';
 
@@ -11,6 +18,7 @@ import { SignUpInput } from './dto/sign-up-input.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('signup')
   async signUp(@Body() input: SignUpInput): Promise<User> {
     const user = await this.authService.signUp(input);

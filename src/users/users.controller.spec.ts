@@ -54,7 +54,7 @@ describe('Users Controller', () => {
 
   describe('findOneByName', () => {
     it('should return the user', async () => {
-      const input = { name: 'a' };
+      const input = 'a';
       const result = plainToClass(User, {
         id: 1,
         name: 'a',
@@ -68,7 +68,7 @@ describe('Users Controller', () => {
         );
 
       expect(await controller.findOneByName(input)).toEqual(result);
-      expect(findOneByName.mock.calls[0][0]).toEqual(input.name);
+      expect(findOneByName.mock.calls[0][0]).toEqual(input);
     });
   });
 });
