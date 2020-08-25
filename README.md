@@ -1,6 +1,6 @@
 # NestJS starter
 
-![CI status](https://github.com/twihike/nestjs-starter/workflows/ci/badge.svg)
+[![CI status](https://github.com/twihike/nestjs-starter/workflows/ci/badge.svg)](https://github.com/twihike/nestjs-starter/actions)
 
 [NestJS](https://github.com/nestjs/nest) framework starter repository.
 
