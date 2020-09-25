@@ -4,106 +4,93 @@ name: ci
 
 on:
   push:
-    branches: [master]
+    branches: 
+      - master
   pull_request:
-    branches: [master]
-
-env:
-  cache-version: v20200524
-  YARN_CACHE_FOLDER: ~/yarn-cache
+    branches:
+      - master
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-18.04, macos-10.15, windows-2019]
-        node-version: [12.x]
+        os:
+          - ubuntu-18.04
+          - macos-10.15
+          - windows-2019
+        node-version:
+          - 12.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Yarn cache
-        uses: actions/cache@v1
-        id: yarn-cache
-        with:
-          path: ~/yarn-cache
-          key: ${{ env.cache-version }}-yarn-${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ env.cache-version }}-yarn-${{ matrix.os }}-${{ matrix.node-version }}-
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - name: Build cache
-        uses: actions/cache@v1
-        id: build-cache
-        with:
-          path: '.'
-          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
 
   lint:
-    needs: build
     strategy:
       matrix:
-        os: [ubuntu-18.04]
-        node-version: [12.x]
+        os:
+          - ubuntu-18.04
+        node-version:
+          - 12.x
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/cache@v1
-        id: restore-build
-        with:
-          path: '.'
-          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
       - run: yarn lint
         continue-on-error: true
 
   unit-test:
-    needs: build
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.15, windows-2019]
-        node-version: [12.x]
+        os:
+          - ubuntu-18.04
+          - macos-10.15
+          - windows-2019
+        node-version:
+          - 12.x
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/cache@v1
-        id: restore-build
-        with:
-          path: '.'
-          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
       - run: yarn test:cov
 
   e2e-test-sqlite:
-    needs: build
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.15, windows-2019]
-        node-version: [12.x]
+        os:
+          - ubuntu-18.04
+          - macos-10.15
+          - windows-2019
+        node-version:
+          - 12.x
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/cache@v1
-        id: restore-build
-        with:
-          path: '.'
-          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
       - run: yarn test:e2e
 
   e2e-test-postgres:
-    needs: build
     strategy:
       matrix:
-        os: [ubuntu-18.04]
-        node-version: [12.x]
+        os:
+          - ubuntu-18.04
+        node-version:
+          - 12.x
     runs-on: ${{ matrix.os }}
     services:
       postgres:
@@ -118,14 +105,11 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/cache@v1
-        id: restore-build
-        with:
-          path: '.'
-          key: ${{ env.cache-version }}-build-${{ matrix.os }}-${{ matrix.node-version }}-${{ github.sha }}
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
       - run: yarn migration:generate Test
       - run: yarn migration:show || true
       - run: yarn migration:run
