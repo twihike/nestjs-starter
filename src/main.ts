@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/import-style
 import { join } from 'path';
 
 import { ValidationPipe } from '@nestjs/common';
@@ -16,6 +17,22 @@ async function bootstrap(): Promise<void> {
 
   app.enableCors();
   app.use(helmet());
+  if (config.env.NODE_ENV === 'development') {
+    app.use(
+      helmet.contentSecurityPolicy({
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          'img-src': ["'self'", 'data:', 'https://cdn.jsdelivr.net/'],
+          'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            'https://cdn.jsdelivr.net/',
+          ],
+        },
+      }),
+    );
+  }
   app.use(compression());
   app.useGlobalPipes(
     new ValidationPipe({
