@@ -16,7 +16,7 @@ export class TypeOrmNamingStrategy
     customName: string,
     embeddedPrefixes: string[],
   ): string {
-    const n = embeddedPrefixes.concat(customName || propertyName).join('_');
+    const n = [...embeddedPrefixes, customName || propertyName].join('_');
     return snakeCase(n);
   }
 

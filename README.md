@@ -83,7 +83,6 @@
     * Prettier: <https://prettier.io/>
   * Packages
     * prettier: <https://github.com/prettier/prettier>
-    * eslint-plugin-prettier: <https://github.com/prettier/eslint-plugin-prettier>
     * eslint-config-prettier: <https://github.com/prettier/eslint-config-prettier>
 
 * Test
@@ -214,7 +213,7 @@ yarn add -D eslint-config-airbnb
 yarn add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin
 
 # formatter
-yarn add -D eslint-config-prettier eslint-plugin-prettier
+yarn add -D eslint-config-prettier
 
 # documentation
 yarn add -D @compodoc/compodoc

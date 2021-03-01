@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import {
-  DNSHealthIndicator,
   HealthCheck,
   HealthCheckService,
   HealthIndicatorResult,
+  HttpHealthIndicator,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { HealthCheckResult } from '@nestjs/terminus/dist/health-check';
@@ -16,7 +16,7 @@ export class HealthController {
     private readonly config: ConfigService,
     private readonly health: HealthCheckService,
     private readonly db: TypeOrmHealthIndicator,
-    private readonly dns: DNSHealthIndicator,
+    private readonly http: HttpHealthIndicator,
   ) {}
 
   @Get()
@@ -28,7 +28,7 @@ export class HealthController {
           timeout: this.config.env.HEALTH_CHECK_DATABASE_TIMEOUT_MS,
         }),
       (): Promise<HealthIndicatorResult> =>
-        this.dns.pingCheck('google', 'https://google.com'),
+        this.http.pingCheck('google', 'https://google.com'),
     ]);
   }
 }
