@@ -15,11 +15,11 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
           - macos-10.15
           - windows-2019
         node-version:
-          - 12.x
+          - 14.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +33,9 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
         node-version:
-          - 12.x
+          - 14.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -51,11 +51,11 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
           - macos-10.15
           - windows-2019
         node-version:
-          - 12.x
+          - 14.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -70,11 +70,11 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
           - macos-10.15
           - windows-2019
         node-version:
-          - 12.x
+          - 14.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -88,9 +88,9 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
         node-version:
-          - 12.x
+          - 14.x
     runs-on: ${{ matrix.os }}
     services:
       postgres:
