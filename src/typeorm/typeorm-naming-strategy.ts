@@ -6,7 +6,8 @@ import { snakeCase } from 'typeorm/util/StringUtils';
 /* eslint-disable class-methods-use-this */
 export class TypeOrmNamingStrategy
   extends DefaultNamingStrategy
-  implements NamingStrategyInterface {
+  implements NamingStrategyInterface
+{
   tableName(targetName: string, userSpecifiedName: string): string {
     return userSpecifiedName || pluralize(snakeCase(targetName));
   }

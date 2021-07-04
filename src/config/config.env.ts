@@ -65,7 +65,7 @@ export class EnvConfig {
     obj.TYPEORM_LOGGING = false;
     obj.HEALTH_CHECK_DATABASE_TIMEOUT_MS = 3000;
     obj.JWT_SECRET = '';
-    obj.JWT_EXPIRES_IN = 86400;
+    obj.JWT_EXPIRES_IN = 86_400;
     obj.SKIP_AUTH = false;
     obj.SWAGGER_UI = false;
     obj.GQL_PLAYGROUND = false;

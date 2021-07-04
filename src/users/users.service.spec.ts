@@ -40,9 +40,9 @@ describe('UsersService', () => {
         }),
       ];
 
-      const find = jest.spyOn(repo, 'find').mockReturnValue(
-        new Promise<User[]>((resolve) => resolve(result)),
-      );
+      const find = jest
+        .spyOn(repo, 'find')
+        .mockReturnValue(new Promise<User[]>((resolve) => resolve(result)));
 
       expect(await service.findAll()).toEqual(result);
       expect(find.mock.calls).toHaveLength(1);
@@ -58,9 +58,9 @@ describe('UsersService', () => {
         email: 'a@example.com',
       });
 
-      const findOne = jest.spyOn(repo, 'findOne').mockReturnValue(
-        new Promise<User>((resolve) => resolve(result)),
-      );
+      const findOne = jest
+        .spyOn(repo, 'findOne')
+        .mockReturnValue(new Promise<User>((resolve) => resolve(result)));
 
       expect(await service.findOneByName(input)).toEqual(result);
       const param = { name: input };
