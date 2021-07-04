@@ -72,9 +72,9 @@ describe('AuthService', () => {
         .mockReturnValue(mockSalt);
       const mockHash = 'hash';
       const hashSync = jest.spyOn(bcrypt, 'hashSync').mockReturnValue(mockHash);
-      const save = jest.spyOn(usersRepo, 'save').mockReturnValue(
-        new Promise<User>((resolve) => resolve(result)),
-      );
+      const save = jest
+        .spyOn(usersRepo, 'save')
+        .mockReturnValue(new Promise<User>((resolve) => resolve(result)));
 
       expect(await service.signUp(input)).toBe(result);
       expect(genSaltSync.mock.calls[0][0]).toBe(10);
@@ -106,12 +106,11 @@ describe('AuthService', () => {
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
-          .mockReturnValue(
-            new Promise<User>((resolve) => resolve(user)),
-          );
-        const compare = jest.spyOn(bcrypt, 'compare').mockReturnValue(
-          new Promise<boolean>((resolve) => resolve(true)),
-        );
+          .mockReturnValue(new Promise<User>((resolve) => resolve(user)));
+
+        const compare = (
+          jest.spyOn(bcrypt, 'compare') as jest.SpyInstance
+        ).mockReturnValue(new Promise<boolean>((resolve) => resolve(true)));
         const sign = jest.spyOn(jwtService, 'sign').mockReturnValue(token);
 
         expect(await service.signIn(input)).toEqual(result);
@@ -134,9 +133,7 @@ describe('AuthService', () => {
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
-          .mockReturnValue(
-            new Promise<undefined>((resolve) => resolve(user)),
-          );
+          .mockReturnValue(new Promise<undefined>((resolve) => resolve(user)));
 
         expect(await service.signIn(input)).toEqual(result);
         expect(findOneByName.mock.calls[0][0]).toBe(input.name);
@@ -160,12 +157,10 @@ describe('AuthService', () => {
 
         const findOneByName = jest
           .spyOn(usersService, 'findOneByName')
-          .mockReturnValue(
-            new Promise<User>((resolve) => resolve(user)),
-          );
-        const compare = jest.spyOn(bcrypt, 'compare').mockReturnValue(
-          new Promise<boolean>((resolve) => resolve(false)),
-        );
+          .mockReturnValue(new Promise<User>((resolve) => resolve(user)));
+        const compare = (
+          jest.spyOn(bcrypt, 'compare') as jest.SpyInstance
+        ).mockReturnValue(new Promise<boolean>((resolve) => resolve(false)));
 
         expect(await service.signIn(input)).toEqual(result);
         expect(findOneByName.mock.calls[0][0]).toBe(input.name);
@@ -189,9 +184,7 @@ describe('AuthService', () => {
 
       const findOneByName = jest
         .spyOn(usersService, 'findOneByName')
-        .mockReturnValue(
-          new Promise<User>((resolve) => resolve(result)),
-        );
+        .mockReturnValue(new Promise<User>((resolve) => resolve(result)));
 
       expect(await service.validateUser(input)).toEqual(result);
       expect(findOneByName.mock.calls[0][0]).toBe(input.name);
